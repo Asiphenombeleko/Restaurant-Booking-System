@@ -2,22 +2,24 @@ import assert from "assert"
 import RestaurantTableBooking from "../services/restaurant.js";
 import pgPromise from 'pg-promise';
 
-const DATABASE_URL = '';
+const DATABASE_URL = 'postgresql://codex:xcode123@localhost:5432/projectdb';
 
 const connectionString = process.env.DATABASE_URL || DATABASE_URL;
 const db = pgPromise()(connectionString);
 
 describe("The restaurant booking table", function () {
+    this.timeout(20000)
     beforeEach(async function () {
         try {
             // clean the tables before each test run
-            // await db.none("TRUNCATE TABLE table_booking RESTART IDENTITY CASCADE;");
+            await db.none("TRUNCATE TABLE table_booking RESTART IDENTITY CASCADE;");
         } catch (err) {
             console.log(err);
             throw err;
         }
     });
 
+   let RestaurantTableBooking = restaurant(db)
     it("Get all the available tables", async function () {
         const restaurantTableBooking = await RestaurantTableBooking(db);
 
@@ -107,7 +109,7 @@ describe("The restaurant booking table", function () {
         let restaurantTableBooking = await RestaurantTableBooking(db);
 
         assert.deepEqual([], await restaurantTableBooking.getBookedTablesForUser('jodie'));
-        
+
         restaurantTableBooking.bookTable({
             tableName: 'Table five',
             username: 'Jodie',
