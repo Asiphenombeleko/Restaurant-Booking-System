@@ -1,0 +1,1 @@
+[![Node.js CI](https://github.com/Asiphenombeleko/Restaurant-Booking-System/actions/workflows/node.js.yml/badge.svg)](https://github.com/Asiphenombeleko/Restaurant-Booking-System/actions/workflows/node.js.yml)
