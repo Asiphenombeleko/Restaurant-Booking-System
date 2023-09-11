@@ -1,4 +1,4 @@
-const restaurant = (db) => {
+ export default function restaurant(db) {
 
     async function getTables() {
         // get all the available tables

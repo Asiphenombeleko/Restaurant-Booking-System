@@ -19,7 +19,7 @@ describe("The restaurant booking table", function () {
         }
     });
 
-   let RestaurantTableBooking = restaurant(db)
+    let RestaurantTableBooking = restaurant()
     it("Get all the available tables", async function () {
         const restaurantTableBooking = await RestaurantTableBooking(db);
 
