@@ -1,11 +1,18 @@
 import express from "express";
-import pgp from "pg-promise";
 import exphbs from "express-handlebars";
 import bodyParser from "body-parser";
 import flash from "flash-express";
+import createRestaurantFrontend from "./services/restaurant.js"; //
+import restaurant from "./db/dbLogic.js";
+import db from './connection.js'
+
 
 const app = express()
 
+const RestaurantTableBooking = restaurant(db);
+const restaurantFrontend = createRestaurantFrontend(RestaurantTableBooking);
+
+const index_route =allInIndex(RestaurantTableBooking)
 app.use(express.static('public'));
 app.use(flash());
 
@@ -26,20 +33,9 @@ app.get("/", (req, res) => {
     res.render('index', { tables : [{}, {}, {booked : true}, {}, {}, {}]})
 });
 //create the book route to be able to book a table
-app.post('/book', (req, res) => {
-  // Handle the booking logic here
-  const tableId = req.body.tableId;
-  const bookingSize = req.body.booking_size;
-  const username = req.body.username;
-  const phoneNumber = req.body.phone_number;
+app.post('/book', index_route.booking);
 
-  // Perform the booking and send a response
-  
-});
-
-app.get("/bookings", (req, res) => {
-    res.render('bookings', { tables : [{}, {}, {}, {}, {}, {}]})
-});
+app.get("/bookings", index_route.makeBooking)
 
 
 var portNumber = process.env.PORT || 3000;
