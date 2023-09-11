@@ -25,7 +25,17 @@ app.get("/", (req, res) => {
 
     res.render('index', { tables : [{}, {}, {booked : true}, {}, {}, {}]})
 });
+//create the book route to be able to book a table
+app.post('/book', (req, res) => {
+  // Handle the booking logic here
+  const tableId = req.body.tableId;
+  const bookingSize = req.body.booking_size;
+  const username = req.body.username;
+  const phoneNumber = req.body.phone_number;
 
+  // Perform the booking and send a response
+  
+});
 
 app.get("/bookings", (req, res) => {
     res.render('bookings', { tables : [{}, {}, {}, {}, {}, {}]})
