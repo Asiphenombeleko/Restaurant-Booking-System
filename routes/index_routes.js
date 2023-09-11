@@ -1,4 +1,5 @@
 export default function allInIndex(RestaurantTableBooking){
+    
     async function booking(req, res){
         try {
           const tableId = req.body.tableId;
@@ -28,13 +29,14 @@ export default function allInIndex(RestaurantTableBooking){
           req.flash('error', 'Error booking the table.');
           res.redirect('/'); // Redirect back to the main page with an error message
         }
-        async function makeBooking(req, res){
+    }
+        async function makeBookings(req, res) {
             const bookedTables = await restaurantFrontend.getBookedTables();
             res.render('bookings', { tables: bookedTables });
-        };
+        
       }
       return{
         booking,
-        makeBooking
+        makeBookings
       }
 }
